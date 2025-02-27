@@ -116,11 +116,6 @@ html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-t
   vertical-align: middle;
 }
 
-.gdrive {
-  display: flex;
-  justify-content: center;
-}
-
 #status {
   font-family: monospace;
   background: #e4e4e4;

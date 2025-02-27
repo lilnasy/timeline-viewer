@@ -13,26 +13,6 @@ You can also drag and drop a `Profile-*.json` file onto the webapp.
 
 <hr clear=both>
 
-
-
-### Google Drive integration
-
-Once authorized, you'll see Timeline Viewer as a registered Google Drive viewer when opening .json files. Once you select the Timeline Viewer, it will open in a new tab and load the timeline asset from your Drive.
-
-<center><img src="https://cloud.githubusercontent.com/assets/39191/18080010/67390d9a-6e48-11e6-98a3-9c8c81b1df67.png" width=600></center>
-
-
-You can share this URL with any users who have both:
-
-1. authorized [Timeline Viewer](https://chromedevtools.github.io/timeline-viewer/) to Drive via the typical Google OAuth flow and..
-1. have `Edit` permission to the Google Drive file
-
-<center><img src="https://cloud.githubusercontent.com/assets/39191/18080845/fb39f056-6e4b-11e6-90df-6cda94bd2495.png" width=600></center>
-
-To revoke authorization, visit your <a href="https://security.google.com/settings/security/permissions?pli=1">Google security permissions</a>.
-
----------------------
-
 ## Dev
 
 Run:

@@ -10,7 +10,6 @@
       <div class="top-message info-message" id="info-message" hidden></div>
       <div class="top-message online-status-message bg-green" id="online-status" hidden>Online</div>
       <div class="top-message offline-status-message bg-orange" id="offline-status" hidden>Offline</div>
-      <div class="top-message upload-btn bg-green" id="upload-to-drive" hidden>Upload to drive</div>
       <div class="top-message upload-btn bg-green" id="update-version" hidden>Update version</div>
     </div>
     <div class="welcome w-100 sans-serif bg-white" id="dropbox">
@@ -60,35 +59,6 @@
             <p>No data is stored by this app; it's clientside only. Visit your <a href="https://security.google.com/settings/security/permissions?pli=1">Google security permissions</a> if you'd like to revoke authorization.
 
           <hr>
-
-          <details>
-            <summary>
-              <h4 class="f4 br3 br--top black-60 pv2 mb0" style="display: inline;">Google Drive Integration (very optional)</h4>
-            </summary>
-
-              <article class="center mw7-ns br3 ba b--black-10 mv4">
-
-                <div class="pa3 bt b--black-10 f6 f5-ns lh-copy">
-                  <div class=gdrive>
-                      <p id="status">Checking for Drive API authorization...</p>
-                      <button class="btn btn--s btn--green" id="auth" hidden>Authorize Drive API access</button>
-                      <button class="btn btn--s btn--yellow" id="revoke-access" hidden>Revoke API Access</button>
-                  </div>
-                </div>
-            </article>
-
-              <p>Once authorized, you'll see Timeline Viewer as a registered Google Drive viewer when opening <code>.json</code> files.
-              Once you select the Timeline Viewer, it will open in a new tab and load the timeline asset from your Drive.</p>
-
-              <img src="https://cloud.githubusercontent.com/assets/39191/18080010/67390d9a-6e48-11e6-98a3-9c8c81b1df67.png" style="width: 80%; margin: 20px auto; display: block;">
-
-              <p>You can share this URL with any users who have both 1) authorized Timeline Viewer to Drive via the typical Google OAuth flow and 2) have <code>Edit</code> permission to the Google Drive file.
-
-              <img src="https://cloud.githubusercontent.com/assets/39191/18080845/fb39f056-6e4b-11e6-90df-6cda94bd2495.png" style="width: 80%; margin: 20px auto; display: block;">
-
-              <p>Afterwards, you can <a href="https://security.google.com/settings/security/permissions?pli=1">revoke</a> authorization entirely.
-            </details>
-
         </article>
 
 
@@ -98,10 +68,8 @@
 
 
     <script src="utils.js" defer></script>
-    <script src="auth.js" defer></script>
     <script src="dev_tools.js" defer></script>
     <script src="sync_view.js" defer></script>
-    <script src="storage.js" defer></script>
     <script src="timeline_viewer.js" defer></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
@@ -111,8 +79,6 @@
           return;
         }
         globalThis.viewerInstance = new Viewer();
-
-        viewerInstance.checkAuth({immediate: true});
 
         // Remove any service workers. part 2
         navigator.serviceWorker.getRegistrations().then(registrations => {
