@@ -5,3 +5,5 @@ config_dev.js
 config_prod.js
 
 test/cypress/videos
+
+.wrangler

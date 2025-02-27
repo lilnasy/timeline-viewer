@@ -1,0 +1,5 @@
+{
+    "$schema": "https://unpkg.com/wrangler/config-schema.json",
+    "name": "timeline-viewer",
+    "pages_build_output_dir": "docs"
+}
