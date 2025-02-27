@@ -26,6 +26,12 @@ class DevTools {
       import('https://chrome-devtools-frontend.appspot.com/serve_rev/@70f00f477937b61ba1876a1fdbf9f2e914f24fe3/ui/legacy/theme_support/theme_support.js'),
       // import('https://chrome-devtools-frontend.appspot.com/serve_rev/@70f00f477937b61ba1876a1fdbf9f2e914f24fe3/panels/UI/UI.js'),
     ]);
+
+    // prevent scrolling the frame ancestor by focusing elements within the iframe 
+    const widgetPrototype = Object.getPrototypeOf(legacy.View.SimpleView.prototype)
+    widgetPrototype.focus = function () {}
+    Console.ConsoleView.prototype.immediatelyScrollToBottom = function () {}
+
     globalThis.Root = Root;
     globalThis.Common = Common;
     globalThis.TraceBounds = TraceBounds;
