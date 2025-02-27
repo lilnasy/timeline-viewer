@@ -18,7 +18,6 @@ class Viewer {
     this.refreshPage = false;
     this.welcomeView = false;
 
-    this.statusElem = document.getElementById('status');
     this.infoMessageElem = document.getElementById('info-message');
     this.networkOnlineStatusElem = document.getElementById('online-status');
     this.networkOfflineStatusElem = document.getElementById('offline-status');
@@ -159,32 +158,6 @@ class Viewer {
     document.documentElement.classList.toggle('hide-devtools', this.welcomeView);
   }
 
-  updateStatus(str) {
-    this.statusElem.textContent = str;
-  }
-  // monkeypatched method for devtools
-  async fetchPatched(...args) {
-    const requestedURL = args.at(0).replace('/o/traces/', '/o/traces%2F');
-    args[0] = requestedURL;
-    const url = new URL(requestedURL, location.href);
-
-    // pass through URLs that aren't our timelineURL param
-    if (requestedURL !== this.timelineURL) {
-      return this._orig_fetch.apply(window, args);
-    }
-
-    // This is comign from devtools starting its own fetch but we're gonna do an alleyoop through existing metadatastuff.
-    if (this.timelineProvider === 'drive') {
-      return this.driveAssetLoaded.then(payload => new Response(payload));
-    }
-
-    // adjustments for CORS
-    url.hostname = url.hostname.replace('github.com', 'githubusercontent.com');
-    url.hostname = url.hostname.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
-
-    return this.fetchTimelineAsset(url.href);
-  }
-
   fetchTimelineAsset(url, addRequestHeaders = Function.prototype, method = 'GET', body) {
     this.loadingStarted = false;
     return this.utils.fetch(url.replace('/o/traces/', '/o/traces%2F'), {
@@ -197,15 +170,12 @@ class Viewer {
       })
       .catch(({error, xhr}) => {
         this.makeDevToolsVisible(false);
-        this.updateStatus('Download of asset failed. ' + ((xhr.readyState == xhr.DONE) ? 'CORS headers likely not applied.' : ''));
         console.warn('Download of asset failed', error);
       });
   }
 
   async updateProgress(evt) {
     try {
-      this.updateStatus(`Download progress: ${((evt.loaded / this.totalSize) * 100).toFixed(2)}%`);
-
       await legacy.InspectorView.InspectorView.instance().showPanel('timeline');
       const panel = await legacy.InspectorView.InspectorView.instance().panel('timeline');
       // start progress
