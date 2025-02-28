@@ -27,6 +27,17 @@ class DevTools {
       // import('https://chrome-devtools-frontend.appspot.com/serve_rev/@70f00f477937b61ba1876a1fdbf9f2e914f24fe3/panels/UI/UI.js'),
     ]);
 
+    // prevent logging unimportant error to the console
+    addEventListener("unhandledrejection", e => {
+      if (e.reason.message === "This is a stub connection, can't dispatch message.") {
+        e.preventDefault()
+      }
+    })
+
+    // prevent logging internal performance timings to the console
+    Main.Main.time = function () {}
+    Main.Main.timeEnd = function () {}
+
     // prevent scrolling the frame ancestor by focusing elements within the iframe 
     const widgetPrototype = Object.getPrototypeOf(legacy.View.SimpleView.prototype)
     widgetPrototype.focus = function () {}
